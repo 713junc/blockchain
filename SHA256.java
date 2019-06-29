@@ -3,7 +3,7 @@ import java.security.MessageDigest;
 
 public class SHA256 { // The SHA256 Hashes are the fingerprints of the blocks
 
-    public static String hash(String data) {
+    public static String hashing(String data) {
       try {
 
             MessageDigest digest = MessageDigest.getInstance("SHA-256");
@@ -30,9 +30,9 @@ public class SHA256 { // The SHA256 Hashes are the fingerprints of the blocks
       public static void main(String[] args) {
 
         // Bitcoin uses "double-SHA256" algorithm
-        System.out.println(SHA256.hash(SHA256.hash("Bit-Coin")));
-        System.out.println(SHA256.hash("blockchain"));
-        System.out.println(SHA256.hash("blockchain!"));
+        System.out.println(SHA256.hashing(SHA256.hashing("Bit-Coin")));
+        System.out.println(SHA256.hashing("blockchain"));
+        System.out.println(SHA256.hashing("blockchain!"));
       }
 }
 
