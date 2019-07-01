@@ -39,4 +39,13 @@ public class Block { // Blocks are cryptographically linked together based on th
   public void setPrevHash(String prevHash) {
     this.prevHash = prevHash;
   }
+
+  public void incrementNonce() {
+    this.nonce++;
+  }
+
+  @Override
+  public String toString() {
+    return this.id + "-" + this.transaction + "-" + this.hash + "-" + this.prevHash + "-";
+  }
 }
