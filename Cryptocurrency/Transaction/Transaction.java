@@ -8,24 +8,24 @@ import java.util.ArrayList;
 public class Transaction {
 
   private PublicKey sender;
-	private PublicKey receiver;
+  private PublicKey receiver;
 
   public List<Input> inputs;
-	public List<Output> outputs;
-	private String transactionId;
-	private double amount;
-	private byte[] signature;
+  public List<Output> outputs;
+  private String transactionId;
+  private double amount;
+  private byte[] signature;
 
 
-	public Transaction(PublicKey sender, PublicKey receiver, List<TransactionInput> inputs, double amount) {
+  public Transaction(PublicKey sender, PublicKey receiver, List<TransactionInput> inputs, double amount) {
     this.sender = sender;
-		this.receiver = receiver;
-		this.inputs = new ArrayList<Input>();
-		this.outputs = new ArrayList<Output>();
+    this.receiver = receiver;
+    this.inputs = new ArrayList<Input>();
+    this.outputs = new ArrayList<Output>();
     this.amount = amount;
-		this.inputs = inputs;
-		newHash();
-	}
+    this.inputs = inputs;
+    newHash();
+  }
 
   private void newHash() {
     String data = sender.toString() + receiver.toString() + Double.toString(amount);
@@ -52,34 +52,34 @@ public class Transaction {
     return sum;
   }
 
-	public boolean verifyTransaction() {
-		if(!verifySignature()) {
-			System.out.println("Invalid Transaction, please check your transaction");
-			return false;
-		}
+  public boolean verifyTransaction() {
+    if(!verifySignature()) {
+      System.out.println("Invalid Transaction, please check your transaction");
+      return false;
+    }
 
-		for(Input input : inputs) {
-			input.setUTXO(BlockChain.UTXOs.get(input.getOutputId()));
-		}
+    for(Input input : inputs) {
+      input.setUTXO(BlockChain.UTXOs.get(input.getOutputId()));
+    }
 
-		outputs.add(new Output(this.receiver, transactionId, amount));
-		outputs.add(new Output(this.sender, transactionId, getInputsAmountSum() - amount));
+    outputs.add(new Output(this.receiver, transactionId, amount));
+    outputs.add(new Output(this.sender, transactionId, getInputsAmountSum() - amount));
 
-		for(Output output : outputs) {
-			BlockChain.UTXOs.put(output.getId(), output);
-		}
+    for(Output output : outputs) {
+      BlockChain.UTXOs.put(output.getId(), output);
+    }
 
-		for(Input input : inputs) {
-			if(input.getUTXO() != null)
-				BlockChain.UTXOs.remove(input.getUTXO().getId());
-		}
-		return true;
-	}
+    for(Input input : inputs) {
+      if(input.getUTXO() != null)
+        BlockChain.UTXOs.remove(input.getUTXO().getId());
+    }
+    return true;
+  }
 
   // Get Methods
   public PublicKey getSender() {
-		return sender;
-	}
+    return sender;
+  }
 
   public PublicKey getReceiver() {
     return receiver;
@@ -102,35 +102,35 @@ public class Transaction {
   }
 
   public byte[] getSignature() {
-		return signature;
-	}
+    return signature;
+  }
 
   // Set Methods
   public void setSender(PublicKey sender) {
-		this.sender = sender;
-	}
+    this.sender = sender;
+  }
 
-	public void setReceiver(PublicKey receiver) {
-		this.receiver = receiver;
-	}
+  public void setReceiver(PublicKey receiver) {
+    this.receiver = receiver;
+  }
 
   public void setInputs(List<Input> inputs) {
-  	this.inputs = inputs;
+    this.inputs = inputs;
   }
 
   public void setOutputs(List<Output> outputs) {
-  	this.outputs = outputs;
+    this.outputs = outputs;
   }
 
-	public void setTransactionId(String transactionId) {
-		this.transactionId = transactionId;
-	}
+  public void setTransactionId(String transactionId) {
+    this.transactionId = transactionId;
+  }
 
-	public void setAmount(double amount) {
-		this.amount = amount;
-	}
+  public void setAmount(double amount) {
+    this.amount = amount;
+  }
 
-	public void setSignature(byte[] signature) {
-		this.signature = signature;
-	}
+  public void setSignature(byte[] signature) {
+    this.signature = signature;
+  }
 }
