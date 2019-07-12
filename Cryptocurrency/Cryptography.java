@@ -11,7 +11,6 @@ import java.security.NoSuchProviderException;
 import java.security.MessageDigest;
 
 public class Cryptography {
-
     public static String newHash(String data) { 
       try {
             MessageDigest digest = MessageDigest.getInstance("SHA-256");
