@@ -23,7 +23,7 @@ public class BlockChain {
     public String toString() {
         String blockChain = "";
         for(Block block : BlockChain.blockChain){
-            blockChain +=b lock.toString()+"\n";
+            blockChain += block.toString()+"\n";
         }
         return blockChain;
     }
